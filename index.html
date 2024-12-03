@@ -7,33 +7,94 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
             margin-top: 20px;
+            color: #4CAF50;
         }
+
+        p {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
         button {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
             font-size: 16px;
-            margin-top: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        input, select {
-            padding: 5px;
-            font-size: 16px;
-            margin: 5px;
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #4CAF50;
+        }
+
+        .failure {
+            color: #e74c3c;
+        }
+
+        .warning {
+            color: #f39c12;
         }
     </style>
 </head>
 <body>
-    <h1>Игра в Лотерею</h1>
-    <p id="balance">Баланс: 100</p>
-    <label>Ставка:</label>
-    <input type="number" id="bet" placeholder="Введите ставку" min="1">
-    <br>
-    <label>Выберите число (1-10):</label>
-    <input type="number" id="chosen-number" placeholder="Ваше число" min="1" max="10">
-    <br>
-    <button id="play-btn">Запустить</button>
-    <p id="result"></p>
+    <div class="container">
+        <h1>Игра в Лотерею</h1>
+        <p id="balance">Баланс: 100</p>
+        <label for="bet">Ставка:</label>
+        <input type="number" id="bet" placeholder="Введите ставку" min="1">
+        <label for="chosen-number">Выберите число (1-10):</label>
+        <input type="number" id="chosen-number" placeholder="Ваше число" min="1" max="10">
+        <button id="play-btn">Запустить</button>
+        <p id="result"></p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
