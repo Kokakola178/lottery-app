@@ -1,4 +1,5 @@
-let balance = 100;
+let balance = 1000;
+
 const balanceEl = document.getElementById('balance');
 const betEl = document.getElementById('bet');
 const chosenNumberEl = document.getElementById('chosen-number');
@@ -10,6 +11,7 @@ playBtn.addEventListener('click', () => {
     const bet = parseInt(betEl.value);
     const chosenNumber = parseInt(chosenNumberEl.value);
 
+    // Проверка ввода
     if (isNaN(bet) || isNaN(chosenNumber) || bet <= 0 || chosenNumber < 1 || chosenNumber > 10) {
         resultEl.textContent = "Введите корректные ставку и число!";
         resultEl.style.color = "yellow";
@@ -22,31 +24,45 @@ playBtn.addEventListener('click', () => {
         return;
     }
 
+    // Генерация случайного числа
     const randomNumber = Math.floor(Math.random() * 10) + 1;
 
-    if (randomNumber === chosenNumber) {
-        balance += bet;
-        resultEl.textContent = `Вы выиграли! Выпало ${randomNumber}. Ваш баланс увеличен на ${bet}.`;
+    // Логика выигрыша/проигрыша
+    const diff = Math.abs(randomNumber - chosenNumber);
+    if (diff === 0) {
+        balance += bet * 2; // +200%
+        resultEl.textContent = `Поздравляем! Вы угадали! Выпало ${randomNumber}. Баланс увеличен на ${bet * 2}.`;
         resultEl.style.color = "lime";
-        addHistory(`Выигрыш! Ставка: ${bet}, Число: ${chosenNumber}, Выпало: ${randomNumber}`);
+    } else if (diff === 1) {
+        balance += bet * 0.5; // +50%
+        resultEl.textContent = `Почти угадали! Выпало ${randomNumber}. Баланс увеличен на ${bet * 0.5}.`;
+        resultEl.style.color = "green";
+    } else if (diff === 2) {
+        // Ничего не теряет
+        resultEl.textContent = `Вы близко! Выпало ${randomNumber}. Баланс остался прежним.`;
+        resultEl.style.color = "blue";
+    } else if (diff === 3) {
+        balance -= bet * 0.1; // -10%
+        resultEl.textContent = `Вы немного ошиблись. Выпало ${randomNumber}. Потеря ${Math.round(bet * 0.1)}.`;
+        resultEl.style.color = "orange";
     } else {
-        const diff = Math.abs(randomNumber - chosenNumber);
-        const penalty = Math.min(diff * 10, 100);
-        const loss = (bet * penalty) / 100;
-        balance -= loss;
-
-        resultEl.textContent = `Вы проиграли. Выпало ${randomNumber}. Потеря: ${Math.round(loss)}.`;
+        balance -= bet * 0.5; // -50%
+        resultEl.textContent = `Вы сильно ошиблись. Выпало ${randomNumber}. Потеря ${Math.round(bet * 0.5)}.`;
         resultEl.style.color = "red";
-        addHistory(`Проигрыш. Ставка: ${bet}, Число: ${chosenNumber}, Выпало: ${randomNumber}`);
     }
 
+    // Проверка на нулевой баланс
     if (balance <= 0) {
         balance = 0;
-        resultEl.textContent += " Баланс обнулён. Игра окончена.";
+        resultEl.textContent += " Ваш баланс обнулён. Игра окончена.";
         resultEl.style.color = "red";
     }
 
+    // Обновление баланса
     balanceEl.textContent = `Баланс: ${Math.round(balance)}`;
+
+    // Добавление записи в историю
+    addHistory(`Ставка: ${bet}, Число: ${chosenNumber}, Выпало: ${randomNumber}, Баланс: ${Math.round(balance)}`);
 });
 
 function addHistory(message) {
