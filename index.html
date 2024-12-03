@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лотерея</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Библиотека Telegram WebApp -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 20%;
+            margin-top: 20px;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
+            margin-top: 10px;
+        }
+        input, select {
+            padding: 5px;
+            font-size: 16px;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Участвуйте в лотерее!</h1>
-    <p>Нажмите кнопку, чтобы попытать удачу.</p>
-    <button id="lottery-btn">Участвовать</button>
+    <h1>Игра в Лотерею</h1>
+    <p id="balance">Баланс: 100</p>
+    <label>Ставка:</label>
+    <input type="number" id="bet" placeholder="Введите ставку" min="1">
+    <br>
+    <label>Выберите число (1-10):</label>
+    <input type="number" id="chosen-number" placeholder="Ваше число" min="1" max="10">
+    <br>
+    <button id="play-btn">Запустить</button>
     <p id="result"></p>
-
-    <!-- Подключаем JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
